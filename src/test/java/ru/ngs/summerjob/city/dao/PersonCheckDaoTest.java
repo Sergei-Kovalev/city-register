@@ -6,11 +6,7 @@ import ru.ngs.summerjob.city.domain.PersonRequest;
 import ru.ngs.summerjob.city.domain.PersonResponse;
 import ru.ngs.summerjob.city.exception.PersonCheckException;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PersonCheckDaoTest {
 
@@ -27,6 +23,7 @@ class PersonCheckDaoTest {
         pr.setApartment("121");
 
         PersonCheckDao dao = new PersonCheckDao();
+        dao.setConnectionBuilder(new DirectConnectionBuilder());
         PersonResponse ps = dao.checkPerson(pr);
 
         Assertions.assertTrue(ps.isRegistered());
@@ -45,6 +42,7 @@ class PersonCheckDaoTest {
         pr.setApartment("18");
 
         PersonCheckDao dao = new PersonCheckDao();
+        dao.setConnectionBuilder(new DirectConnectionBuilder());
         PersonResponse ps = dao.checkPerson(pr);
 
         Assertions.assertTrue(ps.isRegistered());

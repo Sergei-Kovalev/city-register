@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.ngs.summerjob.city.dao.PersonCheckDao;
+import ru.ngs.summerjob.city.dao.PoolConnectionBuilder;
 import ru.ngs.summerjob.city.domain.PersonRequest;
 import ru.ngs.summerjob.city.domain.PersonResponse;
 import ru.ngs.summerjob.city.exception.PersonCheckException;
@@ -23,12 +24,11 @@ public class CheckPersonServlet extends HttpServlet {
 
     private PersonCheckDao dao;
 
-
-
     @Override
-    public void init() throws ServletException {
+    public void init() {
         logger.info("Servlet is created");
         dao = new PersonCheckDao();
+        dao.setConnectionBuilder(new PoolConnectionBuilder());
     }
 
     @Override
@@ -57,7 +57,6 @@ public class CheckPersonServlet extends HttpServlet {
         } catch (PersonCheckException e) {
             e.printStackTrace();
         }
-
 
     }
 }
